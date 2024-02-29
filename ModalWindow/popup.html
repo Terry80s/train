@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>子画面</title>
+</head>
+<body>
+    <input id="childInput" type="text" oninput="updateParentInput()">
+    <button id="sendButton">回传信息到父画面</button>
+
+    <script>
+        function updateParentInput() {
+            const value = document.getElementById('childInput').value;
+            window.opener.postMessage({ action: 'updateInput', value: value }, '*');
+        }
+
+        document.getElementById('sendButton').addEventListener('click', function() {
+            const message = '来自子画面的消息';
+            window.opener.postMessage({ action: 'receiveMessage', value: message }, '*');
+        });
+    </script>
+</body>
+</html>
